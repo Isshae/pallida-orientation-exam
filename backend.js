@@ -41,7 +41,7 @@ app.get("/search", function(request, response){
 app.get("/search/:brand", function(req, res){
     let data = [];
     console.log(req.params.brand);
-    sqlConnection.query('SELECT * FROM licence_plates WHERE LOWER(car_brand) like "'+req.params.brand+';"', function(err, results, fields){
+    sqlConnection.query('SELECT * FROM licence_plates WHERE LOWER(car_brand) like LOWER("'+req.params.brand+'");', function(err, results, fields){
         if(err){
             console.log("Sql query error!");
         }
@@ -51,6 +51,39 @@ app.get("/search/:brand", function(req, res){
         });
     res.json(data);
     });
+});
+
+app.get("/licence/:number", function(req, res){
+    let data = [];
+    console.log(req.params.number);
+    if(req.params.number.length <= 7){
+        console.log("After IF");
+        sqlConnection.query('SELECT * FROM licence_plates WHERE UPPER(plate) like UPPER("'+req.params.number+'");', function(err, results, fields){
+            if(err){
+                console.log("Sql query error!")
+            }
+            if(results = null){
+                data = {
+                    "Message":"Not in db!"
+                }
+            }else{
+                results.forEach(function(element){
+                    data.push(element);
+                    console.log(element);
+                });
+            }
+            console.log("result: " + results);
+        console.log(data);
+        res.json(data);
+        });
+    }else{
+        data = {
+            "result": "error", 
+            "message": "invalid input" 
+        }
+        
+    }
+    res.json(data);
 });
 
 
