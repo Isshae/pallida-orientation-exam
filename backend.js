@@ -41,17 +41,16 @@ app.get("/search", function(request, response){
 app.get("/search/:brand", function(req, res){
     let data = [];
     console.log(req.params.brand);
-    sqlConnection.query('SELECT * FROM licence_plates WHERE LOWER(car_brand) = "'+req.params.brand+';"', function(err, results, fields){
-        console.log(sqlConnection.query);
+    sqlConnection.query('SELECT * FROM licence_plates WHERE LOWER(car_brand) like "'+req.params.brand+';"', function(err, results, fields){
         if(err){
             console.log("Sql query error!");
         }
         results.forEach(function(element){
             data.push(element);
             console.log(element);
-    })
+        });
     res.json(data);
-    })
+    });
 });
 
 

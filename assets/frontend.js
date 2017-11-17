@@ -7,7 +7,9 @@ const frontend = (function(){
         var button = document.querySelector('button');
         var car_brand_input = document.querySelector('input');
         button.addEventListener('click', function () {
-          endpoint += "/"+car_brand_input.value;
+          let endpoint = "/search/";
+          endpoint += car_brand_input.value;
+          console.log(endpoint);
           ajax('GET', endpoint, Render)
         });
     }
@@ -17,7 +19,7 @@ const frontend = (function(){
     const Render = function(responseData){
         let table = document.querySelector('table');
         while(table.firstChild){
-            table.removeChild(ulBody.firstChild);
+            table.removeChild(table.firstChild);
         }
         let tableInnerContent = `<table style="border-width:1px;border-color:black;border-style:solid;">
                                 <thead>
