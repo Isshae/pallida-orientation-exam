@@ -21,7 +21,6 @@ app.get('/', function(request, response){
 });
 
 app.get("/search", function(request, response){
-    console.log("list end point!");
     let data = [];
     sqlConnection.query("SELECT * FROM licence_plates;", function(err, rows){
         if(err){
@@ -29,19 +28,27 @@ app.get("/search", function(request, response){
         }
         rows.forEach(function(row) {
             data.push(row);
-            console.log(row);
         });
+        if(data === null){
+
+        }
         response.json(data);
     });
     
 })
 
 
-app.delete("/tracklists/:id", function(req, res){
+app.get("/search/:brand", function(req, res){
     let data = [];
-    sqlConnection.query("DELETE FROM Music WHERE id="+req.params.id+" AND system = 0;");
-    sqlConnection.query("Select * from Music;", function(err, results, fields){
-        results.forEach(function(element){data.push(element)
+    console.log(req.params.brand);
+    sqlConnection.query('SELECT * FROM licence_plates WHERE LOWER(car_brand) = "'+req.params.brand+';"', function(err, results, fields){
+        console.log(sqlConnection.query);
+        if(err){
+            console.log("Sql query error!");
+        }
+        results.forEach(function(element){
+            data.push(element);
+            console.log(element);
     })
     res.json(data);
     })

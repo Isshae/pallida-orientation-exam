@@ -1,3 +1,17 @@
 body {
-    background-color: lightblue;
+    background-color: lightcyan
 }
+
+table {
+    border-collapse: collapse;
+    width: 800px;
+  }
+  
+  table, td, th {    
+    border: 1px solid #d1d0d0;
+    text-align: left;
+  }
+  
+  th, td {
+    padding: 5px;
+  }

@@ -9,6 +9,7 @@ function ajax(request_type, end_point, callback, reqBody){
     xhr.setRequestHeader("accept", "application/json");
     xhr.setRequestHeader("content-type", "application/json");
     xhr.onload = function(){
+        console.log("Hello callback!");
         callback(JSON.parse(xhr.responseText));
         console.log("Response text in ajax!");
     }

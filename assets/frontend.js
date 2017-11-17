@@ -3,30 +3,48 @@
 const frontend = (function(){
 
     const Load = function() {
-        console.log("Frontend - Load method");
         ajax("GET", "/search", Render);
-
-    }
-
-    const Render = function(responseData){
-        let ulBody = document.querySelector('ul');
-        
-        // while(ulBody.firstChild){
-        //     ulBody.removeChild(ulBody.firstChild);
-        // }
-        responseData.forEach(function(item) {
-            let newLi = document.createElement('li');
-            newLi.textContent = item;  
-            ulBody.appendChild(newLi);
+        var button = document.querySelector('button');
+        var car_brand_input = document.querySelector('input');
+        button.addEventListener('click', function () {
+          endpoint += "/"+car_brand_input.value;
+          ajax('GET', endpoint, Render)
         });
     }
 
+
+
+    const Render = function(responseData){
+        let table = document.querySelector('table');
+        while(table.firstChild){
+            table.removeChild(ulBody.firstChild);
+        }
+        let tableInnerContent = `<table style="border-width:1px;border-color:black;border-style:solid;">
+                                <thead>
+                                    <th>Plate</th>
+                                    <th>Car brand</th>
+                                    <th>Model</th>
+                                    <th>Color</th>
+                                    <th>Year</th>
+                                </thead>
+                                <tbody>`;
+        responseData.forEach(function(row) {
+            tableInnerContent +=`<tr>
+            <td>`+ row.plate +`</td>
+            <td>`+ row.car_brand +`</td>
+            <td>`+ row.car_model +`</td>
+            <td>` + row.color + `</td>
+            <td>`+ row.year +`</td>
+            </tr>`;
+        });
+            tableInnerContent += `</tbody></table>`;
+            table.innerHTML = tableInnerContent;
+    }
+
     return {
-        Load : Load,
-        Create : Create
+        Load : Load
     }
 
 })();
 
-console.log("Frontend calling...");
 frontend.Load();
