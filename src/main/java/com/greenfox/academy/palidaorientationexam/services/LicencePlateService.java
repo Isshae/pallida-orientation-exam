@@ -11,4 +11,11 @@ public interface LicencePlateService {
   List<LicencePlate> getAll();
 
   List<LicencePlate> getByBrand(String brand);
+  List<LicencePlate> getByBrandContains(String brand);
+
+  List<LicencePlate> getAllPolice();
+
+  List<LicencePlate> getAllDiplomat();
+
+  List<LicencePlate> getAllByPlate(String plate);
 }

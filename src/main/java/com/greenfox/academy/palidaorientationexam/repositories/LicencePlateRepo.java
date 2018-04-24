@@ -12,4 +12,10 @@ public interface LicencePlateRepo  extends CrudRepository<LicencePlate,String>{
   List<LicencePlate> findAll();
 
   List<LicencePlate> findAllByCarBrand(String brand);
+
+  List<LicencePlate> findAllByCarBrandContaining(String brand);
+
+  List<LicencePlate> findAllByPlateContaining(String plate);
+
+  List<LicencePlate> findAllByPlateStartingWith(String plate);
 }

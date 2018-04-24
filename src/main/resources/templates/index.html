@@ -3,30 +3,50 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+    <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="col-md-12">
 <h1> Licence Plates</h1>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Plate</th>
-        <th>Car brand</th>
-        <th>Car model</th>
-        <th>Color</th>
-        <th>Year</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="plate:${allPlates}">
-        <td th:text="${plate.plate}"></td>
-        <td th:text="${plate.getCarBrand()}"></td>
-        <td th:text="${plate.carModel}"></td>
-        <td th:text="${plate.color}"></td>
-        <td th:text="${plate.year}"></td>
-    </tr>
-    </tbody>
-</table>
+<h2 th:if="${error}" th:text="${error}"></h2>
+<div class="row">
+    <form action="#" th:action="@{/search}" method="get">
+        <input type="text" name="plate" id="plate" autofocus>
+        <input type="submit" name="Search">
+    </form>
+    <form action="/">
+        <input type="submit" value="Back"/>
+    </form>
+    <ul class="nav navbar-nav">
+        <li><a th:href="'/search?plate=police'">Police</a></li>
+        <li><a th:href="'/search?plate=diplomat'">Diplomat</a></li>
+    </ul>
+</div>
+<div class="table">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Plate</th>
+            <th>Car brand</th>
+            <th>Car model</th>
+            <th>Color</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="plate:${allPlates}">
+            <td th:text="${plate.plate}"></td>
+            <td><a th:href="@{'/search/' + ${plate.carBrand}}" th:text="${plate.carBrand}"></a></td>
+            <td th:text="${plate.carModel}"></td>
+            <td th:text="${plate.color}"></td>
+            <td th:text="${plate.year}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
+
+<script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 </body>
 </html>
