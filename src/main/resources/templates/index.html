@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<h1> Licence Plates</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Plate</th>
+        <th>Car brand</th>
+        <th>Car model</th>
+        <th>Color</th>
+        <th>Year</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="plate:${allPlates}">
+        <td th:text="${plate.plate}"></td>
+        <td th:text="${plate.getCarBrand()}"></td>
+        <td th:text="${plate.carModel}"></td>
+        <td th:text="${plate.color}"></td>
+        <td th:text="${plate.year}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
